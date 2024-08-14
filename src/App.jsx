@@ -4,7 +4,7 @@ import axios from "axios";
 import TodoItem from "./components/TodoList";
 import styled from "styled-components";
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com",
 });
 

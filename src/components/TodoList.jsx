@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import TitleTodo from "./TitleTodo";
+import { instance } from "../App";
 
-const TodoList = ({ todos, setTodos, instance }) => {
+const TodoList = ({ todos, setTodos }) => {
   //삭제
   const onClickDelete = async (todo) => {
     try {

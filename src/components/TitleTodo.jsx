@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { instance } from "../App";
 
 const TitleTodo = ({ todo }) => {
   const [isCheckedLine, setIsCheckedLine] = useState(todo.completed);
 
   //할 일 체크
-  const onClickLine = async ({ id, instance }) => {
+  const onClickLine = async ({ id }) => {
     try {
       await instance.patch(`/todos/${id}`, { complated: !isCheckedLine });
       setIsCheckedLine(!isCheckedLine);

@@ -18,7 +18,7 @@ function App() {
         const res = await instance.get(`/todos`);
         setTodos([...res.data.slice(0, 5)]);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error(`error ${error}`);
       }
     };
 
@@ -43,7 +43,7 @@ function App() {
         setAddInputValue("");
       }
     } catch (error) {
-      console.error("Failed to add todo:", error);
+      console.error(`error ${error}`);
     }
   };
 

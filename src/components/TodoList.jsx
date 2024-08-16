@@ -17,12 +17,12 @@ const TodoList = ({ todos, setTodos }) => {
   //추가
   const updateTodo = async (id, updatedTitle) => {
     try {
-      const response = await instance.patch(`/todos/${id}`, {
+      const res = await instance.patch(`/todos/${id}`, {
         title: updatedTitle,
       });
-      setTodos(todos.map((todo) => (todo.id === id ? response.data : todo)));
+      setTodos(todos.map((todo) => (todo.id === id ? res.data : todo)));
     } catch (error) {
-      console.log(error);
+      console.error(`error ${error}`);
     }
   };
 
@@ -33,7 +33,7 @@ const TodoList = ({ todos, setTodos }) => {
           <List key={i}>
             <div className="listLeft">
               <li> {i + 1}.</li>
-              <TitleTodo todo={todo} todos={todos} instance={instance} />
+              <TitleTodo todo={todo} todos={todos} />
             </div>
             <div className="listRight">
               <button onClick={() => onClickDelete(todo)}>삭제</button>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { instance } from "../App";
 
 const TitleTodo = ({ todo }) => {
-  const [isCheckedLine, setIsCheckedLine] = useState(todo.completed);
+  const [isCheckedLine, setIsCheckedLine] = useState(false);
 
   //할 일 체크
   const onClickLine = async ({ id }) => {
@@ -10,7 +10,7 @@ const TitleTodo = ({ todo }) => {
       await instance.patch(`/todos/${id}`, { complated: !isCheckedLine });
       setIsCheckedLine(!isCheckedLine);
     } catch (error) {
-      console.log(error);
+      console.error(`error ${error}`);
     }
   };
 
@@ -19,7 +19,7 @@ const TitleTodo = ({ todo }) => {
       className="textDecoration"
       onClick={() => onClickLine(todo.id)}
       style={{
-        textDecoration: isCheckedLine ? "line-through" : "none",
+        textDecoration: isCheckedLine === true ? "line-through" : "none",
       }}
     >
       {todo.title}

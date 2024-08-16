@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import "./App.css";
 import axios from "axios";
-import TodoItem from "./components/TodoList";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import "./App.css";
+import TodoList from "./components/TodoList";
 
 export const instance = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com",
@@ -65,7 +65,8 @@ function App() {
         />
         <button onClick={addTodoItem}>추가</button>
       </InputBox>
-      <TodoItem todos={todos} setTodos={setTodos} instance={instance} />
+      {/* 보통은 파일 이름이랑 컴포넌트 이름이랑 맞춰요. 안맞추면 다른 사람이 찾기가 힘듬 */}
+      <TodoList todos={todos} setTodos={setTodos} instance={instance} />
     </Container>
   );
 }

@@ -1,25 +1,12 @@
-import { useState } from "react";
-import { instance } from "../App";
-
-const TitleTodo = ({ todo }) => {
-  const [isCheckedLine, setIsCheckedLine] = useState(false);
-
-  //할 일 체크
-  const onClickLine = async ({ id }) => {
-    try {
-      await instance.patch(`/todos/${id}`, { complated: !isCheckedLine });
-      setIsCheckedLine(!isCheckedLine);
-    } catch (error) {
-      console.error(`error ${error}`);
-    }
-  };
-
+const TitleTodo = ({ todo, onClick }) => {
   return (
     <li
       className="textDecoration"
-      onClick={() => onClickLine(todo.id)}
+      // onClick 함수를 부모에서 내리도록 수정
+      onClick={() => onClick(todo.id)}
       style={{
-        textDecoration: isCheckedLine === true ? "line-through" : "none",
+        // 이게 지역 상태로만 관리하면 실제 todos가 바뀌지 않으니까, 그 기준을 부모의 todos로 잡음
+        textDecoration: todo.completed === true ? "line-through" : "none",
       }}
     >
       {todo.title}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import TitleTodo from "./TitleTodo";
 import { instance } from "../App";
+import TitleTodo from "./TitleTodo";
 
 const TodoList = ({ todos, setTodos }) => {
   //삭제
@@ -26,6 +26,29 @@ const TodoList = ({ todos, setTodos }) => {
     }
   };
 
+  // 자식 컴포넌트의 onClick 함수를 여기로 가지고옴.
+  const titleClick = async (id) => {
+    try {
+      // 직접 수정하려면 꼭 복사후에 진행해야함. useState는 직접 변경 X
+      const newTodos = [...todos];
+      newTodos.forEach((todo) => {
+        // 수동으로 해당 todo의 completed 변경
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+      });
+
+      // 현재 클릭된 todo가 체크되어 있는지 아닌지, 기준을 해당 todo의 completed로 판단.
+      const isCompleted = newTodos.filter((todo) => todo.id === id)[0]
+        ?.completed;
+      await instance.patch(`/todos/${id}`, { completed: !isCompleted });
+
+      setTodos(newTodos);
+    } catch (error) {
+      console.error(`error ${error}`);
+    }
+  };
+
   return (
     <>
       {todos.map((todo, i) => {
@@ -33,7 +56,7 @@ const TodoList = ({ todos, setTodos }) => {
           <List key={i}>
             <div className="listLeft">
               <li> {i + 1}.</li>
-              <TitleTodo todo={todo} todos={todos} />
+              <TitleTodo todo={todo} todos={todos} onClick={titleClick} />
             </div>
             <div className="listRight">
               <button onClick={() => onClickDelete(todo)}>삭제</button>
